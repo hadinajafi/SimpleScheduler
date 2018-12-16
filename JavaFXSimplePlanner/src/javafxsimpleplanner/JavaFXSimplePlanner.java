@@ -20,6 +20,7 @@ public class JavaFXSimplePlanner extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        //anchorPane is default layout
         AnchorPane root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("TabbedLayout.fxml"));
