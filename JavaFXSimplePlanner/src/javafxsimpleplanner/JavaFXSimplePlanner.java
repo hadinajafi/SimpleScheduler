@@ -28,7 +28,7 @@ public class JavaFXSimplePlanner extends Application {
             System.out.println(ex.getMessage());
         }
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("tabbeddlayout.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("tabbedlayout.css").toExternalForm());
         primaryStage.setTitle("Teyhu Simple Planner");
         primaryStage.setScene(scene);
         primaryStage.show();
