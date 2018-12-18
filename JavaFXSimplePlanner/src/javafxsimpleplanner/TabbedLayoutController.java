@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
@@ -55,6 +55,24 @@ public class TabbedLayoutController implements Initializable {
     
     @FXML
     private Label dayTodayLabel;
+    
+    @FXML
+    private Button addNewTaskButton;
+
+    @FXML
+    private Button addNewGoalButton;
+    
+    @FXML
+    private TableView<?> goalViewTable;
+
+    @FXML
+    private TableColumn<?, ?> goalDescriptionColumn;
+
+    @FXML
+    private TableColumn<?, ?> goalTimeColumn;
+
+    @FXML
+    private TableColumn<?, ?> goalProgressColumn;
     
     
     /**
