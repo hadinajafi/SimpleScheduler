@@ -13,6 +13,7 @@ import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -109,6 +110,45 @@ public class TabbedLayoutController implements Initializable {
     @FXML
     private TableView<?> monthViewTable;
     
+     @FXML
+    private TableColumn<?, ?> day0MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day1MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day2MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day3MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day4MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day5MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day6MonthViewColumn;
+
+    @FXML
+    private TableColumn<?, ?> day7MonthViewColumn;
+
+    @FXML
+    private ListView<?> monthViewGoalsList;
+    
+    @FXML
+    private BarChart<?, ?> yearViewChart;
+
+    @FXML
+    private TableView<?> yearViewTasksTable;
+
+    @FXML
+    private TableColumn<?, ?> yearViewTaskNameCol;
+
+    @FXML
+    private TableColumn<?, ?> yearViewProgressCol;
+    
     
     /**
      * Initializes the controller class.
@@ -129,6 +169,7 @@ public class TabbedLayoutController implements Initializable {
         dayTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         goalViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         monthViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
     }    
     
 }
