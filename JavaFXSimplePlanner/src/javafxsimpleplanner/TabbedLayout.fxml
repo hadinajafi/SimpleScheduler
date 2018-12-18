@@ -10,10 +10,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxsimpleplanner.TabbedLayoutController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="798.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxsimpleplanner.TabbedLayoutController">
     <stylesheets>
         <URL value="@tabbedlayout.css" />
     </stylesheets>
@@ -65,9 +66,27 @@
               </content>
             </Tab>
             <Tab text="Goals">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TitledPane animated="false" collapsible="false" prefHeight="365.0" prefWidth="798.0" text="Long-term Goals" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="goalViewTable" prefHeight="339.0" prefWidth="796.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="goalDescriptionColumn" prefWidth="467.99999392032623" text="Goal Description" />
+                                        <TableColumn fx:id="goalTimeColumn" prefWidth="130.00003051757812" text="Time" />
+                                          <TableColumn fx:id="goalProgressColumn" prefWidth="130.99993896484375" text="Progress" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                     </children>
+                  </AnchorPane>
+               </content>
             </Tab>
             <Tab text="Settings">
               <content>
@@ -78,7 +97,9 @@
       </TabPane>
       <ToolBar fx:id="toolbar" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <Button mnemonicParsing="false" text="Button" />
+          <Button fx:id="addNewTaskButton" mnemonicParsing="false" text="Add New Task" />
+            <Button fx:id="addNewGoalButton" mnemonicParsing="false" text="Add New Goal" />
+            <Button mnemonicParsing="false" text="Button" />
         </items>
       </ToolBar>
    </children>
