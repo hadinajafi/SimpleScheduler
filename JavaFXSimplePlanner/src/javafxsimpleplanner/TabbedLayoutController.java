@@ -16,11 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToolBar;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -74,6 +76,39 @@ public class TabbedLayoutController implements Initializable {
     @FXML
     private TableColumn<?, ?> goalProgressColumn;
     
+    @FXML
+    private TableView<?> weekViewTable;
+
+    @FXML
+    private TableColumn<?, ?> day0WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day1WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day2WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day3WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day4WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day5WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day6WeekTableCol;
+
+    @FXML
+    private TableColumn<?, ?> day7WeekTableCol;
+
+    @FXML
+    private ListView<?> weekGoalsList;
+    
+    @FXML
+    private TableView<?> monthViewTable;
+    
     
     /**
      * Initializes the controller class.
@@ -89,6 +124,11 @@ public class TabbedLayoutController implements Initializable {
         datePicker.addEventHandler(EventType.ROOT, (Event event) -> {
             dayTodayLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy")));
         });
+        //set the columns resizable to auto fit table size
+        weekViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        dayTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        goalViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        monthViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }    
     
 }
