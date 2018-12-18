@@ -30,6 +30,8 @@ public class JavaFXSimplePlanner extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("tabbedlayout.css").toExternalForm());
         primaryStage.setTitle("Teyhu Simple Planner");
+        primaryStage.setMinWidth(700);
+        primaryStage.setMinHeight(460);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
