@@ -7,22 +7,35 @@ package javafxsimpleplanner;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.cell.ProgressBarTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 /**
@@ -39,16 +52,22 @@ public class TabbedLayoutController implements Initializable {
     private ToolBar toolbar;
     
     @FXML
-    private TableView<?> dayTableView;
+    private TableView<dayTaskBean> dayTableView;
 
     @FXML
-    private TableColumn<?, ?> dayTimeColomun;
+    private TableColumn<dayTaskBean, String> dayViewTitleCol;
 
     @FXML
-    private TableColumn<?, ?> dayTaskColumn;
+    private TableColumn<dayTaskBean, Integer> dayViewImportanceCol;
 
     @FXML
-    private TableColumn<?, ?> dayStateColumn;
+    private TableColumn<dayTaskBean, LocalDate> dayViewFromTimeCol;
+
+    @FXML
+    private TableColumn<dayTaskBean, LocalTime> dayViewToTimeCol;
+
+    @FXML
+    private TableColumn<dayTaskBean, Double> dayViewProgressCol;
     
     @FXML
     private DatePicker datePicker;
@@ -75,7 +94,7 @@ public class TabbedLayoutController implements Initializable {
     private TableColumn<?, ?> goalTimeColumn;
 
     @FXML
-    private TableColumn<?, ?> goalProgressColumn;
+    private TableColumn<dayTaskBean, Double> goalProgressColumn;
     
     @FXML
     private TableView<?> weekViewTable;
@@ -149,6 +168,33 @@ public class TabbedLayoutController implements Initializable {
     @FXML
     private TableColumn<?, ?> yearViewProgressCol;
     
+    private ObservableList<dayTaskBean> dayViewData = FXCollections.observableArrayList(new dayTaskBean("title1", 1, "12", "2", 0.8));
+    
+    private void initializeTableCellValueFactory(){
+        dayViewTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        dayViewFromTimeCol.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
+        dayViewToTimeCol.setCellValueFactory(new PropertyValueFactory<>("toTime"));
+        dayViewImportanceCol.setCellValueFactory(new PropertyValueFactory<>("importance"));
+        dayViewProgressCol.setCellValueFactory(new PropertyValueFactory<>("progress"));
+        
+        //adding progressbar to the column cell type:
+        dayViewProgressCol.setCellFactory(ProgressBarTableCell.<dayTaskBean> forTableColumn());
+        
+        //minimize the size of 'from' and 'to' columns:
+        dayViewFromTimeCol.setMaxWidth(1200);
+        dayViewFromTimeCol.setStyle("-fx-alignment: CENTER;");
+        dayViewToTimeCol.setMaxWidth(1200);
+        dayViewToTimeCol.setStyle("-fx-alignment: CENTER;");
+        
+        //minimize the size of 'importance' column:
+        dayViewImportanceCol.setMaxWidth(1500);
+        dayViewImportanceCol.setStyle("-fx-alignment: CENTER");
+        
+        //adding comboBox to the column cells
+        ObservableList<Integer> comboItems = FXCollections.observableArrayList(1, 2, 3);
+        dayViewImportanceCol.setCellFactory(ComboBoxTableCell.forTableColumn(comboItems));
+    }
+    
     
     /**
      * Initializes the controller class.
@@ -169,7 +215,10 @@ public class TabbedLayoutController implements Initializable {
         dayTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         goalViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         monthViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        
+        yearViewTasksTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        //initialize the cell value factories for all tables:
+        initializeTableCellValueFactory();
+        dayTableView.setItems(dayViewData);
     }    
     
 }
