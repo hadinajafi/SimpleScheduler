@@ -17,6 +17,7 @@ public class dayTaskBean {
     private SimpleDoubleProperty progress;
     private SimpleStringProperty time;
 
+    //constructor
     public dayTaskBean(String time, String title, Double progress) {
         this.time = new SimpleStringProperty(time);
         this.title = new SimpleStringProperty(title);
