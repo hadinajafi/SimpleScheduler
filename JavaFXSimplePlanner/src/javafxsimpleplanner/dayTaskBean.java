@@ -6,6 +6,7 @@
 package javafxsimpleplanner;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -14,24 +15,36 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class dayTaskBean {
     private SimpleStringProperty title;
+    private SimpleIntegerProperty importance;
+    private SimpleStringProperty fromTime;
     private SimpleDoubleProperty progress;
-    private SimpleStringProperty time;
+    private SimpleStringProperty toTime;
 
     //constructor
-    public dayTaskBean(String time, String title, Double progress) {
-        this.time = new SimpleStringProperty(time);
+    public dayTaskBean(String title, Integer importance,String fromTime, String toTime, Double progress) {
+        this.toTime = new SimpleStringProperty(toTime);
+        this.fromTime = new SimpleStringProperty(fromTime);
+        this.importance = new SimpleIntegerProperty(importance);
         this.title = new SimpleStringProperty(title);
         this.progress = new SimpleDoubleProperty(progress);
     }
     
-    public String getTime(){
-        return time.get();
+    public String getFromTime(){
+        return fromTime.get();
+    }
+    
+    public String getToTime(){
+        return toTime.get();
     }
     public String getTitle(){
         return title.get();
     }
     public Double getProgress(){
         return progress.get();
+    }
+    
+    public Integer getImportance(){
+        return importance.get();
     }
     
 }
