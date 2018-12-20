@@ -41,9 +41,11 @@
                                  <children>
                                     <TableView fx:id="dayTableView" layoutY="30.0" minWidth="200.0" prefHeight="299.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                                       <columns>
-                                        <TableColumn fx:id="dayTimeColomun" prefWidth="75.0" text="Time" />
-                                        <TableColumn fx:id="dayTaskColumn" prefWidth="209.0" text="Task" />
-                                          <TableColumn fx:id="dayStateColumn" prefWidth="65.0" text="State" />
+                                        <TableColumn fx:id="dayViewTitleCol" prefWidth="75.0" text="Title" />
+                                        <TableColumn fx:id="dayViewImportanceCol" prefWidth="77.0" text="Importance" />
+                                          <TableColumn fx:id="dayViewFromTimeCol" prefWidth="67.0" text="From" />
+                                          <TableColumn fx:id="dayViewToTimeCol" prefWidth="75.0" text="To" />
+                                          <TableColumn fx:id="dayViewProgressCol" prefWidth="75.0" text="Progress" />
                                       </columns>
                                     </TableView>
                                     <Label fx:id="dayTodayLabel" alignment="CENTER" layoutY="6.0" prefHeight="17.0" prefWidth="392.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0" />
