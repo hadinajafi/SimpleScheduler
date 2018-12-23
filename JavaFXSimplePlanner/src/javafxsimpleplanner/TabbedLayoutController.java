@@ -5,30 +5,26 @@
  */
 package javafxsimpleplanner;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -36,7 +32,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -167,6 +165,30 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> yearViewProgressCol;
+    
+    @FXML
+    private Button editDayTaskBtn;
+
+    @FXML
+    private Button addNewDayTaskBtn;
+    
+    @FXML
+    void addNewDayTaskBtn(MouseEvent event) {
+        AnchorPane root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddNewTaskLayout.fxml"));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("addnewtasklayout.css").toExternalForm());
+        Stage stage = new Stage();
+        stage.setTitle("Add New Task");
+        stage.setMinWidth(700);
+        stage.setMinHeight(460);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     private ObservableList<dayTaskBean> dayViewData = FXCollections.observableArrayList(new dayTaskBean("title1", 1, "12", "2", 0.8));
     
