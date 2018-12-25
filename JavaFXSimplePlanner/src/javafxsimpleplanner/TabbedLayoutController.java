@@ -29,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -190,6 +191,28 @@ public class TabbedLayoutController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    //Add event for editing the selected column of table.
+    //this is not finished, still need data handling to communicate data between windows
+    @FXML
+    void editDayTaskMouseClicked(MouseEvent event) {
+        AnchorPane root = null;
+        try {
+            //using previous designed window for editing
+            root = FXMLLoader.load(getClass().getResource("AddNewTaskLayout.fxml"));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("addnewtasklayout.css").toExternalForm());
+        Stage stage = new Stage();
+        stage.setTitle("Edit Task");
+        stage.setResizable(false);
+        stage.setMinWidth(566);
+        stage.setMinHeight(353);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     private ObservableList<dayTaskBean> dayViewData = FXCollections.observableArrayList(new dayTaskBean("title1", 1, "12", "2", 0.8));
     
@@ -216,6 +239,8 @@ public class TabbedLayoutController implements Initializable {
         //adding comboBox to the column cells
         ObservableList<Integer> comboItems = FXCollections.observableArrayList(1, 2, 3);
         dayViewImportanceCol.setCellFactory(ComboBoxTableCell.forTableColumn(comboItems));
+        
+        editDayTaskBtn.setTooltip(new Tooltip("Edit current selected task from the table"));
     }
     
     
