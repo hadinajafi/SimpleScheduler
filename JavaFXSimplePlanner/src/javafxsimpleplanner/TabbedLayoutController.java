@@ -184,8 +184,9 @@ public class TabbedLayoutController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("addnewtasklayout.css").toExternalForm());
         Stage stage = new Stage();
         stage.setTitle("Add New Task");
-        stage.setMinWidth(700);
-        stage.setMinHeight(460);
+        stage.setResizable(false);
+        stage.setMinWidth(566);
+        stage.setMinHeight(353);
         stage.setScene(scene);
         stage.show();
     }
