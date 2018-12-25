@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -41,6 +42,15 @@ public class AddNewTaskLayoutController implements Initializable {
 
     @FXML
     private Button decreaseBtn;
+    
+    @FXML
+    private Button applyBtn;
+
+    @FXML
+    private Button cancelBtn;
+    
+    @FXML
+    private TextArea detailsTextArea;
     
     @FXML
     void decreaseProgressBar(MouseEvent event) {
