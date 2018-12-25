@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +17,7 @@
         <URL value="@addnewtasklayout.css" />
     </stylesheets>
    <children>
-      <GridPane fx:id="gridView" alignment="CENTER_LEFT" layoutX="25.0" layoutY="104.0" prefHeight="146.0" prefWidth="530.0" AnchorPane.bottomAnchor="103.0" AnchorPane.topAnchor="104.0">
+      <GridPane fx:id="gridView" alignment="CENTER_LEFT" layoutX="18.0" layoutY="29.0" prefHeight="211.0" prefWidth="530.0" AnchorPane.bottomAnchor="113.0" AnchorPane.topAnchor="29.0">
         <columnConstraints>
           <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
@@ -25,6 +26,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -33,13 +35,17 @@
             <Label text="Task title" />
             <Label text="From" GridPane.rowIndex="1" />
             <Label text="To" GridPane.rowIndex="2" />
-            <Label text="Importance" GridPane.rowIndex="3" />
-            <Label text="Progress" GridPane.rowIndex="4" />
-            <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="421.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ProgressBar fx:id="progressSlider" prefHeight="18.0" prefWidth="467.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Importance" GridPane.rowIndex="4" />
+            <Label text="Progress" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="421.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ProgressBar fx:id="progressSlider" prefHeight="18.0" prefWidth="467.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Note" GridPane.rowIndex="3" />
+            <TextArea fx:id="detailsTextArea" prefHeight="23.0" prefWidth="415.0" promptText="Details" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="increaseBtn" layoutX="522.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#increaseProgressBar" text="&gt;&gt;" />
-      <Button fx:id="decreaseBtn" layoutX="140.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#decreaseProgressBar" text="&lt;&lt;" />
+      <Button fx:id="increaseBtn" layoutX="515.0" layoutY="253.0" mnemonicParsing="false" onMouseClicked="#increaseProgressBar" text="&gt;&gt;" />
+      <Button fx:id="decreaseBtn" layoutX="132.0" layoutY="253.0" mnemonicParsing="false" onMouseClicked="#decreaseProgressBar" text="&lt;&lt;" />
+      <Button fx:id="applyBtn" layoutX="453.0" layoutY="314.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Apply" />
+      <Button fx:id="cancelBtn" layoutX="18.0" layoutY="314.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Cancel" />
    </children>
 </AnchorPane>
