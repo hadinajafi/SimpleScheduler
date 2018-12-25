@@ -34,6 +34,9 @@ public class JavaFXSimplePlanner extends Application {
         primaryStage.setMinHeight(460);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
     }
 
     /**
