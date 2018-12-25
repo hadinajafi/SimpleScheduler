@@ -20,38 +20,41 @@ import javafx.util.StringConverter;
  * @author hadin
  */
 public class TimeSpinner extends Spinner<LocalTime>{
-    enum Mode{
-        HOURS{
-            @Override
-            LocalTime increment(LocalTime time, int steps){
-                return time.plusHours(steps);
-            }
-            @Override
-            void select(TimeSpinner spinner){
-                 int index = spinner.getEditor().getText().indexOf(':');
-                 spinner.getEditor().selectRange(0, index);
-            }
+    enum Mode {
+
+        HOURS {
+           @Override
+           LocalTime increment(LocalTime time, int steps) {
+               return time.plusHours(steps);
+           }
+           @Override
+           void select(TimeSpinner spinner) {
+               int index = spinner.getEditor().getText().indexOf(':');
+               spinner.getEditor().selectRange(0, index);
+           }
         },
-        MINUTES{
+        MINUTES {
             @Override
-            LocalTime increment(LocalTime time, int step){
-                return time.plusMinutes(step);
+            LocalTime increment(LocalTime time, int steps) {
+                return time.plusMinutes(steps);
             }
             @Override
-            void select(TimeSpinner spinner){
-                int hourIndex = spinner.getEditor().getText().indexOf(':');
-                int minIndex = spinner.getEditor().getText().indexOf(':', hourIndex);
-                spinner.getEditor().selectRange(hourIndex+1, minIndex);
+            void select(TimeSpinner spinner) {
+                int index = spinner.getEditor().getText().lastIndexOf(':');
+                spinner.getEditor().selectRange(index+1, spinner.getEditor().getText().length());
             }
         };
-        abstract LocalTime increment(LocalTime time, int step);
+        abstract LocalTime increment(LocalTime time, int steps);
         abstract void select(TimeSpinner spinner);
-        LocalTime decrement(LocalTime time, int steps){
+        LocalTime decrement(LocalTime time, int steps) {
             return increment(time, -steps);
         }
     }
-    
-    private final ObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.HOURS);
+
+    // Property containing the current editing mode:
+
+    private final ObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.HOURS) ;
+
     public ObjectProperty<Mode> modeProperty() {
         return mode;
     }
@@ -63,11 +66,15 @@ public class TimeSpinner extends Spinner<LocalTime>{
     public final void setMode(Mode mode) {
         modeProperty().set(mode);
     }
-    
-    public TimeSpinner(LocalTime time){
+
+
+    public TimeSpinner(LocalTime time) {
         setEditable(true);
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        // Create a StringConverter for converting between the text in the
+        // editor and the actual value:
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         StringConverter<LocalTime> localTimeConverter = new StringConverter<LocalTime>() {
 
@@ -81,9 +88,8 @@ public class TimeSpinner extends Spinner<LocalTime>{
                 String[] tokens = string.split(":");
                 int hours = getIntField(tokens, 0);
                 int minutes = getIntField(tokens, 1) ;
-                int seconds = getIntField(tokens, 2);
-                int totalSeconds = (hours * 60 + minutes) * 60 + seconds ;
-                return LocalTime.of((totalSeconds / 3600) % 24, (totalSeconds / 60) % 60, seconds % 60);
+                int totalSeconds = (hours * 60 + minutes) * 60 + 0;
+                return LocalTime.of((totalSeconds / 3600) % 24, (totalSeconds / 60) % 60, 0);
             }
 
             private int getIntField(String[] tokens, int index) {
@@ -101,7 +107,7 @@ public class TimeSpinner extends Spinner<LocalTime>{
 
         TextFormatter<LocalTime> textFormatter = new TextFormatter<LocalTime>(localTimeConverter, LocalTime.now(), c -> {
             String newText = c.getControlNewText();
-            if (newText.matches("[0-9]{0,2}:[0-9]{0,2}:[0-9]{0,2}")) {
+            if (newText.matches("[0-9]{0,2}:[0-9]{0,2}")) {
                 return c ;
             }
             return null ;
@@ -147,7 +153,7 @@ public class TimeSpinner extends Spinner<LocalTime>{
             int minIndex = this.getEditor().getText().indexOf(':', hrIndex + 1);
             if (caretPos <= hrIndex) {
                 mode.set( Mode.HOURS );
-            } else if (caretPos <= minIndex) {
+            } else {
                 mode.set( Mode.MINUTES );
             }
         });
@@ -155,6 +161,10 @@ public class TimeSpinner extends Spinner<LocalTime>{
         // When the mode changes, select the new portion:
         mode.addListener((obs, oldMode, newMode) -> newMode.select(this));
 
+    }
+
+    public TimeSpinner() {
+        this(LocalTime.now());
     }
     
 }
