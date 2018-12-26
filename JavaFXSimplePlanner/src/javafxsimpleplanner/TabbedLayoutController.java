@@ -21,10 +21,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -33,9 +35,13 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -67,6 +73,9 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private TableColumn<dayTaskBean, Double> dayViewProgressCol;
+    
+    @FXML
+    private TableColumn<dayTaskBean, String> btnColumn;
     
     @FXML
     private DatePicker datePicker;
@@ -239,8 +248,33 @@ public class TabbedLayoutController implements Initializable {
         //adding comboBox to the column cells
         ObservableList<Integer> comboItems = FXCollections.observableArrayList(1, 2, 3);
         dayViewImportanceCol.setCellFactory(ComboBoxTableCell.forTableColumn(comboItems));
-        
-        editDayTaskBtn.setTooltip(new Tooltip("Edit current selected task from the table"));
+        //add edit and delete buttons to this column
+        btnColumn.setCellFactory((TableColumn<dayTaskBean, String> param) -> new TableCell<dayTaskBean, String>(){
+            Button editBtn = new Button();
+            Button deleteBtn = new Button();
+            HBox box = new HBox(editBtn, deleteBtn);
+            @Override
+            public void updateItem(String Item, boolean empty){
+                super.updateItem(Item, empty);
+                if(empty){
+                    setGraphic(null);
+                    setText(null);
+                }
+                else {
+                    editBtn.setGraphic(new ImageView(new Image("/icons/edit16.png")));
+                    editBtn.setOnAction(event -> {
+                        System.out.println("Hello World");
+                    });
+                    deleteBtn.setGraphic(new ImageView(new Image("/icons/trash16.png")));
+                    box.setSpacing(5);
+                    setGraphic(box);
+                    setText(null);
+                }
+            }
+        });
+        btnColumn.setMaxWidth(2000);
+        btnColumn.setPrefWidth(80);
+        btnColumn.setStyle("-fx-alignment: CENTER");
     }
     
     
@@ -254,7 +288,7 @@ public class TabbedLayoutController implements Initializable {
         LocalDate date = LocalDate.now();
         datePicker.setValue(date);
         dayTodayLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy")));
-        
+        //change dayLable Date shower for dynamically change on select date.
         datePicker.addEventHandler(EventType.ROOT, (Event event) -> {
             dayTodayLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy")));
         });
@@ -267,6 +301,7 @@ public class TabbedLayoutController implements Initializable {
         //initialize the cell value factories for all tables:
         initializeTableCellValueFactory();
         dayTableView.setItems(dayViewData);
+        editDayTaskBtn.setTooltip(new Tooltip("Edit current selected task from the table"));
     }    
     
 }
