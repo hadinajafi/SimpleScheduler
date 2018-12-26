@@ -46,6 +46,7 @@
                                           <TableColumn fx:id="dayViewFromTimeCol" prefWidth="67.0" text="From" />
                                           <TableColumn fx:id="dayViewToTimeCol" prefWidth="75.0" text="To" />
                                           <TableColumn fx:id="dayViewProgressCol" prefWidth="75.0" text="Progress" />
+                                          <TableColumn fx:id="btnColumn" prefWidth="75.0" sortable="false" />
                                       </columns>
                                     </TableView>
                                     <Label fx:id="dayTodayLabel" alignment="CENTER" layoutX="96.0" layoutY="6.0" prefHeight="17.0" prefWidth="374.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="6.0" />
