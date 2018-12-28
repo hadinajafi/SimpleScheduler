@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +56,7 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private ToolBar toolbar;
-    
+
     @FXML
     private TableView<dayTaskBean> dayTableView;
 
@@ -73,25 +74,25 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private TableColumn<dayTaskBean, Double> dayViewProgressCol;
-    
+
     @FXML
     private TableColumn<dayTaskBean, String> btnColumn;
-    
+
     @FXML
     private DatePicker datePicker;
-    
+
     @FXML
     private TextArea dayTextArea;
-    
+
     @FXML
     private Label dayTodayLabel;
-    
+
     @FXML
     private Button addNewTaskButton;
 
     @FXML
     private Button addNewGoalButton;
-    
+
     @FXML
     private TableView<?> goalViewTable;
 
@@ -103,41 +104,41 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private TableColumn<dayTaskBean, Double> goalProgressColumn;
-    
-    @FXML
-    private TableView<?> weekViewTable;
 
     @FXML
-    private TableColumn<?, ?> day0WeekTableCol;
+    private TableView<WeekViewBean> weekViewTable;
 
     @FXML
-    private TableColumn<?, ?> day1WeekTableCol;
+    private TableColumn<WeekViewBean, String> day0WeekTableCol;
 
     @FXML
-    private TableColumn<?, ?> day2WeekTableCol;
+    private TableColumn<WeekViewBean, String> day1WeekTableCol;
 
     @FXML
-    private TableColumn<?, ?> day3WeekTableCol;
+    private TableColumn<WeekViewBean, String> day2WeekTableCol;
 
     @FXML
-    private TableColumn<?, ?> day4WeekTableCol;
+    private TableColumn<WeekViewBean, String> day3WeekTableCol;
 
     @FXML
-    private TableColumn<?, ?> day5WeekTableCol;
+    private TableColumn<WeekViewBean, String> day4WeekTableCol;
 
     @FXML
-    private TableColumn<?, ?> day6WeekTableCol;
+    private TableColumn<WeekViewBean, String> day5WeekTableCol;
 
     @FXML
-    private TableColumn<?, ?> day7WeekTableCol;
+    private TableColumn<WeekViewBean, String> day6WeekTableCol;
+
+    @FXML
+    private TableColumn<WeekViewBean, String> day7WeekTableCol;
 
     @FXML
     private ListView<?> weekGoalsList;
-    
+
     @FXML
     private TableView<?> monthViewTable;
-    
-     @FXML
+
+    @FXML
     private TableColumn<?, ?> day0MonthViewColumn;
 
     @FXML
@@ -163,7 +164,7 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private ListView<?> monthViewGoalsList;
-    
+
     @FXML
     private BarChart<?, ?> yearViewChart;
 
@@ -175,13 +176,13 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> yearViewProgressCol;
-    
+
     @FXML
     private Button editDayTaskBtn;
 
     @FXML
     private Button addNewDayTaskBtn;
-    
+
     @FXML
     void addNewDayTaskBtn(MouseEvent event) {
         AnchorPane root = null;
@@ -222,50 +223,77 @@ public class TabbedLayoutController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     private ObservableList<dayTaskBean> dayViewData = FXCollections.observableArrayList(new dayTaskBean("title1", 1, "12", "2", 0.8));
-    
-    private void initializeTableCellValueFactory(){
+
+    private void initializeTableCellValueFactory() {
+        //dayview value factory
         dayViewTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         dayViewFromTimeCol.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
         dayViewToTimeCol.setCellValueFactory(new PropertyValueFactory<>("toTime"));
         dayViewImportanceCol.setCellValueFactory(new PropertyValueFactory<>("importance"));
         dayViewProgressCol.setCellValueFactory(new PropertyValueFactory<>("progress"));
-        
+        //weekview value factory
+        day0WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("noname"));
+        day2WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("tue"));
+        day3WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("wed"));
+        day4WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("thu"));
+        day5WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("fri"));
+        day6WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("sat"));
+        day7WeekTableCol.setCellValueFactory(new PropertyValueFactory<>("sun"));
         //adding progressbar to the column cell type:
-        dayViewProgressCol.setCellFactory(ProgressBarTableCell.<dayTaskBean> forTableColumn());
-        
+        dayViewProgressCol.setCellFactory(ProgressBarTableCell.<dayTaskBean>forTableColumn());
+
         //minimize the size of 'from' and 'to' columns:
         dayViewFromTimeCol.setMaxWidth(1200);
         dayViewFromTimeCol.setStyle("-fx-alignment: CENTER;");
         dayViewToTimeCol.setMaxWidth(1200);
         dayViewToTimeCol.setStyle("-fx-alignment: CENTER;");
-        
+
         //minimize the size of 'importance' column:
         dayViewImportanceCol.setMaxWidth(1500);
         dayViewImportanceCol.setStyle("-fx-alignment: CENTER");
-        
+
         //adding comboBox to the column cells
         ObservableList<Integer> comboItems = FXCollections.observableArrayList(1, 2, 3);
         dayViewImportanceCol.setCellFactory(ComboBoxTableCell.forTableColumn(comboItems));
         //add edit and delete buttons to this column
-        btnColumn.setCellFactory((TableColumn<dayTaskBean, String> param) -> new TableCell<dayTaskBean, String>(){
+        btnColumn.setCellFactory((TableColumn<dayTaskBean, String> param) -> new TableCell<dayTaskBean, String>() {
             Button editBtn = new Button();
             Button deleteBtn = new Button();
             HBox box = new HBox(editBtn, deleteBtn);
+
             @Override
-            public void updateItem(String Item, boolean empty){
+            public void updateItem(String Item, boolean empty) {
                 super.updateItem(Item, empty);
-                if(empty){
+                if (empty) {
                     setGraphic(null);
                     setText(null);
-                }
-                else {
+                } else {
                     editBtn.setGraphic(new ImageView(new Image("/icons/edit16.png")));
+                    //set edit button action
                     editBtn.setOnAction(event -> {
-                        System.out.println("Hello World");
+                        AnchorPane root = null;
+                        try {
+                            //using previous designed window for editing
+                            root = FXMLLoader.load(getClass().getResource("AddNewTaskLayout.fxml"));
+                        } catch (IOException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                        Scene scene = new Scene(root);
+                        scene.getStylesheets().add(getClass().getResource("addnewtasklayout.css").toExternalForm());
+                        Stage stage = new Stage();
+                        stage.setTitle("Edit Task");
+                        stage.setResizable(false);
+                        stage.setMinWidth(566);
+                        stage.setMinHeight(353);
+                        stage.setScene(scene);
+                        stage.show();
                     });
                     deleteBtn.setGraphic(new ImageView(new Image("/icons/trash16.png")));
+                    deleteBtn.setOnAction(event -> {
+                        //TODO delete commands
+                    });
                     box.setSpacing(5);
                     setGraphic(box);
                     setText(null);
@@ -276,10 +304,10 @@ public class TabbedLayoutController implements Initializable {
         btnColumn.setPrefWidth(80);
         btnColumn.setStyle("-fx-alignment: CENTER");
     }
-    
-    
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -302,6 +330,30 @@ public class TabbedLayoutController implements Initializable {
         initializeTableCellValueFactory();
         dayTableView.setItems(dayViewData);
         editDayTaskBtn.setTooltip(new Tooltip("Edit current selected task from the table"));
-    }    
-    
+       
+        
+        //this is awesome work from me, now I can put every day task via list in each cell
+        ListView<String> list = new ListView<>();
+        String[] elements = {"Fight", "Fire"};
+        list.getItems().addAll(elements);
+        ObservableList<WeekViewBean> data = FXCollections.observableArrayList(new WeekViewBean("No Name", elements, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"));
+        weekViewTable.setItems(data);
+        day1WeekTableCol.setCellFactory((TableColumn<WeekViewBean, String> param) -> {
+            return new TableCell<WeekViewBean, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+
+                    super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(list);
+                        setPrefHeight(28 * list.getItems().size());
+                        
+                    }
+                }
+            };
+        });
+    }
+
 }
