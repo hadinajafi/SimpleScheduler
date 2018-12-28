@@ -63,7 +63,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="weekViewTable" prefHeight="365.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="weekViewTable" layoutY="29.0" prefHeight="392.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="29.0">
                           <columns>
                             <TableColumn fx:id="day0WeekTableCol" prefWidth="75.0" />
                             <TableColumn fx:id="day1WeekTableCol" prefWidth="75.0" text="Monday" />
@@ -75,8 +75,12 @@
                               <TableColumn fx:id="day7WeekTableCol" prefWidth="75.0" text="Sunday" />
                           </columns>
                         </TableView>
-                        <ListView fx:id="weekGoalsList" layoutX="601.0" layoutY="24.0" prefHeight="342.0" prefWidth="200.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="24.0" />
-                        <Label alignment="CENTER" layoutX="601.0" layoutY="6.0" prefHeight="17.0" prefWidth="198.0" text="Week Goals" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="6.0" />
+                        <ListView fx:id="weekGoalsList" layoutX="601.0" layoutY="29.0" prefHeight="393.0" prefWidth="200.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="29.0" />
+                        <Label alignment="CENTER" layoutX="670.0" layoutY="6.0" prefHeight="17.0" prefWidth="92.0" text="Week Goals" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="6.0" />
+                        <Button fx:id="previousWeekBtn" layoutY="2.0" mnemonicParsing="false" text="&lt;&lt;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0" />
+                        <Button fx:id="nextWeekBtn" layoutX="583.0" layoutY="2.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="33.0" text="&gt;&gt;" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="2.0" />
+                        <Label fx:id="weekViewDateLabel" alignment="CENTER" layoutX="34.0" layoutY="6.0" prefHeight="17.0" prefWidth="547.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="6.0" />
+                        <Button fx:id="addWeekGoalBtn" layoutX="787.0" layoutY="2.0" mnemonicParsing="false" text="+" />
                      </children></AnchorPane>
             </content>
           </Tab>
