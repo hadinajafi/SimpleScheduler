@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author hadin
  */
 public class WeekViewBean {
-    private SimpleStringProperty noname;
+    private SimpleStringProperty hourPeriod;
     private String[] mon;
     private SimpleStringProperty tue;
     private SimpleStringProperty wed;
@@ -22,8 +22,8 @@ public class WeekViewBean {
     private SimpleStringProperty sun;
     
     
-    public WeekViewBean(String noname, String[] mon,String tue, String wed, String thu, String fri, String sat, String sun){
-        this.noname = new SimpleStringProperty(noname);
+    public WeekViewBean(String periodName, String[] mon,String tue, String wed, String thu, String fri, String sat, String sun){
+        this.hourPeriod = new SimpleStringProperty(HourPeriod.valueOf(periodName).getPeriod());
         this.mon = mon;
         this.tue = new SimpleStringProperty(tue);
         this.wed = new SimpleStringProperty(wed);
@@ -34,7 +34,7 @@ public class WeekViewBean {
     }
 
     public String getNoname() {
-        return noname.get();
+        return hourPeriod.get();
     }
 
     public String[] getMon() {
