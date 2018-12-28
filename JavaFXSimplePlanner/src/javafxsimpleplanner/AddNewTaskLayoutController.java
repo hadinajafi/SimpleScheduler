@@ -6,14 +6,19 @@
 package javafxsimpleplanner;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -59,6 +64,12 @@ public class AddNewTaskLayoutController implements Initializable {
 
     @FXML
     private TextArea detailsTextArea;
+    
+    @FXML
+    private Label dateLabel;
+
+    @FXML
+    private DatePicker datePicker;
 
     @FXML
     void decreaseProgressBar(MouseEvent event) {
@@ -88,7 +99,7 @@ public class AddNewTaskLayoutController implements Initializable {
         } else if (value >= 0.59 && value < 0.8) {
             progressSlider.setStyle("-fx-accent: yellow");
         } else if (value >= 0.79 && value < 0.95) {
-            progressSlider.setStyle("-fx-accent: lightgreen");
+            progressSlider.setStyle("-fx-accent: #00BC23");
         } else if (value >= 0.95) {
             progressSlider.setStyle("-fx-accent: green");
         }
@@ -106,8 +117,8 @@ public class AddNewTaskLayoutController implements Initializable {
         TimeSpinner toSpinner = new TimeSpinner(LocalTime.now());
         fromSpinner.setMaxWidth(gridView.getPrefWidth());
         toSpinner.setMaxWidth(gridView.getPrefWidth());
-        gridView.add(fromSpinner, 1, 1);
-        gridView.add(toSpinner, 1, 2);
+        gridView.add(fromSpinner, 1, 2);
+        gridView.add(toSpinner, 1, 3);
 
         String[] str = {"Low Priority", "Medium Priority", "High Priority"};
         priorityCombo.getItems().addAll(str);
@@ -152,8 +163,15 @@ public class AddNewTaskLayoutController implements Initializable {
                 }
             }
         };
-        priorityCombo.setButtonCell(cell);
-        priorityCombo.setCellFactory(call);
+        priorityCombo.setButtonCell(cell);  //add imageView to the selected Item in Combo
+        priorityCombo.setCellFactory(call); //addd imageView to the list of combo.
+        //add date to the dateLabel in below format. add datePicker handler to change the label text dynamically.
+        LocalDate date = LocalDate.now();
+        datePicker.setValue(date);
+        dateLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMM")));
+        datePicker.addEventHandler(EventType.ROOT, (Event event) -> {
+            dateLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMM")));
+        });
 
 //        priorityCombo.setCellFactory((ListView<String> param) -> new ListCell<String>(){
 //            @Override
