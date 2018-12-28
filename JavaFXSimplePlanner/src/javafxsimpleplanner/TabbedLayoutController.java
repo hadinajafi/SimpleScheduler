@@ -86,12 +86,21 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private Label dayTodayLabel;
+    
+    @FXML
+    private Label weekViewDateLabel;
 
     @FXML
     private Button addNewTaskButton;
 
     @FXML
     private Button addNewGoalButton;
+    
+     @FXML
+    private Button previousWeekBtn;
+
+    @FXML
+    private Button nextWeekBtn;
 
     @FXML
     private TableView<?> goalViewTable;
@@ -134,6 +143,9 @@ public class TabbedLayoutController implements Initializable {
 
     @FXML
     private ListView<?> weekGoalsList;
+    
+    @FXML
+    private Button addWeekGoalBtn;
 
     @FXML
     private TableView<?> monthViewTable;
@@ -336,7 +348,7 @@ public class TabbedLayoutController implements Initializable {
         ListView<String> list = new ListView<>();
         String[] elements = {"Fight", "Fire"};
         list.getItems().addAll(elements);
-        ObservableList<WeekViewBean> data = FXCollections.observableArrayList(new WeekViewBean("No Name", elements, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"));
+        ObservableList<WeekViewBean> data = FXCollections.observableArrayList(new WeekViewBean("h6", elements, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"));
         weekViewTable.setItems(data);
         day1WeekTableCol.setCellFactory((TableColumn<WeekViewBean, String> param) -> {
             return new TableCell<WeekViewBean, String>() {
