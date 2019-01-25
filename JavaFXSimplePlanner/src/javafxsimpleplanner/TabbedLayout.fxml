@@ -80,7 +80,7 @@
                         <Button fx:id="previousWeekBtn" layoutY="2.0" mnemonicParsing="false" text="&lt;&lt;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0" />
                         <Button fx:id="nextWeekBtn" layoutX="583.0" layoutY="2.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="33.0" text="&gt;&gt;" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="2.0" />
                         <Label fx:id="weekViewDateLabel" alignment="CENTER" layoutX="34.0" layoutY="6.0" prefHeight="17.0" prefWidth="547.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="6.0" />
-                        <Button fx:id="addWeekGoalBtn" layoutX="787.0" layoutY="2.0" mnemonicParsing="false" text="+" />
+                        <Button fx:id="addWeekGoalBtn" layoutX="787.0" layoutY="2.0" mnemonicParsing="false" text="+" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="2.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
