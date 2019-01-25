@@ -76,16 +76,16 @@ public class TabbedLayoutController implements Initializable {
     private TableColumn<dayTaskBean, Double> dayViewProgressCol;
 
     @FXML
-    private TableColumn<dayTaskBean, String> btnColumn;
+    private TableColumn<dayTaskBean, String> btnColumn; //column of buttons in daily table. showing buttons needs a standalone column.
 
     @FXML
-    private DatePicker datePicker;
+    private DatePicker datePicker;  //date picker in daily View
 
     @FXML
     private TextArea dayTextArea;
 
     @FXML
-    private Label dayTodayLabel;
+    private Label dayTodayLabel;    //show today detail like day in week, day in month, month in string, year. like: Sunday 25 january 2019
     
     @FXML
     private Label weekViewDateLabel;
@@ -190,24 +190,28 @@ public class TabbedLayoutController implements Initializable {
     private TableColumn<?, ?> yearViewProgressCol;
 
     @FXML
-    private Button editDayTaskBtn;
+    private Button editDayTaskBtn;  //edit task button in daily table column
 
     @FXML
     private Button addNewDayTaskBtn;
 
     @FXML
     void addNewDayTaskBtn(MouseEvent event) {
+        //create and show new window.
+        //anchor pane is default pane for the new window, but the addNew window is not resizable :D
         AnchorPane root = null;
         try {
+            //loading the fxml file
             root = FXMLLoader.load(getClass().getResource("AddNewTaskLayout.fxml"));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         Scene scene = new Scene(root);
+        //loading the css file
         scene.getStylesheets().add(getClass().getResource("addnewtasklayout.css").toExternalForm());
         Stage stage = new Stage();
         stage.setTitle("Add New Task");
-        stage.setResizable(false);
+        stage.setResizable(false);  //setting resizable to false.
         stage.setMinWidth(566);
         stage.setMinHeight(353);
         stage.setScene(scene);
@@ -325,6 +329,10 @@ public class TabbedLayoutController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //set true text wrap in all textareas:
+        dayTextArea.setWrapText(true);
+        
+        //set today date to the datepicker
         LocalDate date = LocalDate.now();
         datePicker.setValue(date);
         dayTodayLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy")));
@@ -332,7 +340,7 @@ public class TabbedLayoutController implements Initializable {
         datePicker.addEventHandler(EventType.ROOT, (Event event) -> {
             dayTodayLabel.setText(datePicker.getValue().format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy")));
         });
-        //set the columns resizable to auto fit table size
+        //set the columns resizable to auto fit table size, all columns automatically fit the table size and there is no extra space.
         weekViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         dayTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         goalViewTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -342,19 +350,20 @@ public class TabbedLayoutController implements Initializable {
         initializeTableCellValueFactory();
         dayTableView.setItems(dayViewData);
         editDayTaskBtn.setTooltip(new Tooltip("Edit current selected task from the table"));
-       
+       //TODO add the tooltip to other buttons like tiny edit and delete buttons in the cells in day table. of course other components.
         
         //this is awesome work from me, now I can put every day task via list in each cell
         ListView<String> list = new ListView<>();
         String[] elements = {"Fight", "Fire"};
+        String[] elements2 = {"3", "task4", "LOL"};
         list.getItems().addAll(elements);
-        ObservableList<WeekViewBean> data = FXCollections.observableArrayList(new WeekViewBean("h6", elements, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"));
+        ObservableList<WeekViewBean> data = FXCollections.observableArrayList(new WeekViewBean("h0", elements, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"),
+                new WeekViewBean("h1", elements2, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"), new WeekViewBean("h2", elements, "Tue", "Wed", "Thu", "Fir", "sat", "Sun"));
         weekViewTable.setItems(data);
         day1WeekTableCol.setCellFactory((TableColumn<WeekViewBean, String> param) -> {
             return new TableCell<WeekViewBean, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
-
                     super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
                     if (empty) {
                         setGraphic(null);
@@ -366,6 +375,9 @@ public class TabbedLayoutController implements Initializable {
                 }
             };
         });
+        for(WeekViewBean bean:data){
+            System.out.println(bean.getMon()[1]);
+        }
     }
 
 }
