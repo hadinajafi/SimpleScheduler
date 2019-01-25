@@ -1,0 +1,38 @@
+Every Pane in project is AnchorPane for anchoring objects to show properly in different window sizes.
+
+* Main class:
+{
+	Adding FXML and CSS file to the main window called "TabbedLayout".
+	- TabbedLayout Controller class,
+	- tabbedlayout css file,
+	- tabbedlayout fxml file.
+	
+	** TabbedLayout controller visual components:
+	{
+		*** main components in root anchorPane:
+		{
+			toolbar at top of the screen to access the quick actions like adding new task or goal.
+			tabbed layout to show the daily tab, weekly tab, monthly tab, yearly tab, goals tab, settings.
+		}
+		
+		*** daily view tab components:
+		{
+			- split pane to split the textarea & datepicker from the table and buttons. it makes easier to change the size of the textarea or table.
+			- TableView dayTableView,
+			- 6 table columns: title column, priority (importance) column, task start time, task end time column, task progress, button column.
+			- date picker to select the day you want to see in daily view.
+			- day label: show detailed selected day info: day in week, day in month, month, and year. e.g. Sunday 24 july 2019. format: EEEE dd MMMM yyyy.
+			- textarea to take extra note. also wraptext is true.
+			- add new button and edit button. (both will remove when completing the actions for button column).
+			- table view have constraint resize policy to fit the all columns with width of the table.
+		}
+		
+		*** week view and other views are in progress......
+	}
+	
+	
+	** TabbedLayout controller methods and specifics:
+	{
+		
+	}
+}

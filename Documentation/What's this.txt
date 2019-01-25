@@ -1,0 +1,10 @@
+Is this happen to you when you don't know what should you do for tomorrow or weekend and also done you work?
+This happen when you don't have any schedule for your life. Grab a paper and a pen, write your tomorrow tasks, write your weekend tasks, write what you wanna do until a period of time, 2 weeks, one month, or whatever. so when you wrote your task list, your schedule for next month, oh... you suddenly remember lost something to write. yes, you can't edit the note on paper, add something to it or you can't set reminders or you can't set alarm for your goals, it is not impossible on paper, but it's easier with SimpleScheduler.
+
+It is JavaFX project, so don't need to worry, it'll work on every OS. just add your goals, tasks and stay organized.
+See charts how much you stayed on your tasks, how much you done. how much you didn't, and see what's your weakness. 
+
+Daily view, Week view, monthly view and goal view are the application features. see every task in different view so you can manage and organize efficiently. goal view is standalone view to focus on your goals.
+Year view is another feature to see longterm tasks and goals. set midterm and short-term tasks also is possible.
+
+The project is open source and under GPL-3 license.
