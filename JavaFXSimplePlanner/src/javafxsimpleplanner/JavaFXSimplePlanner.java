@@ -23,17 +23,20 @@ public class JavaFXSimplePlanner extends Application {
         //anchorPane is default layout
         AnchorPane root = null;
         try {
+            //loading the fxml file.
             root = FXMLLoader.load(getClass().getResource("TabbedLayout.fxml"));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         Scene scene = new Scene(root);
+        //loading the css file to the scene.
         scene.getStylesheets().add(getClass().getResource("tabbedlayout.css").toExternalForm());
-        primaryStage.setTitle("Teyhu Simple Planner");
+        primaryStage.setTitle("Teyhu Simple Scheduler"); //title
         primaryStage.setMinWidth(700);
         primaryStage.setMinHeight(460);
         primaryStage.setScene(scene);
         primaryStage.show();
+        //adding kill the application on closing the main window. in some cases when multiple windows are open, closing the main window, casue the app stay open with other opened windows, but main window is parent.
         primaryStage.setOnCloseRequest(event -> {
             System.exit(0);
         });
